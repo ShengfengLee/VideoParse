@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Bdl-T4-eGu">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="YVu-9H-MBU">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="f7j-Kw-tEO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <navigationController id="Bdl-T4-eGu" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="B3V-dB-KMC">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="zSs-cI-hhf"/>
+                    </connections>
+                </navigationController>
+            </objects>
+            <point key="canvasLocation" x="-794" y="167"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="VideoParse" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="https://www.baidu.com" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aer-ec-yel">
+                                <rect key="frame" x="20" y="168" width="374" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C94-4p-R33">
+                                <rect key="frame" x="167" y="242" width="80" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="Brc-YB-aO8"/>
+                                    <constraint firstAttribute="width" constant="80" id="GLH-ff-uZa"/>
+                                </constraints>
+                                <state key="normal" title="Go"/>
+                                <connections>
+                                    <action selector="go:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Hw7-AH-LXF"/>
+                                </connections>
+                            </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="ZPZ-9x-tmG">
+                                <rect key="frame" x="138.5" y="366" width="137" height="30"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f9Z-u4-uXe">
+                                        <rect key="frame" x="0.0" y="0.0" width="44" height="30"/>
+                                        <state key="normal" title="Vimeo"/>
+                                        <connections>
+                                            <action selector="vimeo:" destination="BYZ-38-t0r" eventType="touchUpInside" id="lM3-Tt-0s8"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zmp-QC-ZrZ">
+                                        <rect key="frame" x="56" y="0.0" width="81" height="30"/>
+                                        <state key="normal" title="DailyMotion"/>
+                                        <connections>
+                                            <action selector="dailyMotion:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fXd-aJ-ZcF"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="gYs-gf-UU9">
+                                <rect key="frame" x="80.5" y="306" width="253" height="30"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HeQ-tA-rtl">
+                                        <rect key="frame" x="0.0" y="0.0" width="31" height="30"/>
+                                        <state key="normal" title="百度"/>
+                                        <connections>
+                                            <action selector="baidu:" destination="BYZ-38-t0r" eventType="touchUpInside" id="gJA-MT-9py"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3YZ-3L-CQW">
+                                        <rect key="frame" x="43" y="0.0" width="57" height="30"/>
+                                        <state key="normal" title="Youtube"/>
+                                        <connections>
+                                            <action selector="youtube:" destination="BYZ-38-t0r" eventType="touchUpInside" id="4ce-sS-j9L"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vf5-Il-Zcb">
+                                        <rect key="frame" x="112" y="0.0" width="62" height="30"/>
+                                        <state key="normal" title="腾讯视频"/>
+                                        <connections>
+                                            <action selector="tencent:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Tk3-FX-kYn"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oXS-Aa-iVe">
+                                        <rect key="frame" x="186" y="0.0" width="67" height="30"/>
+                                        <state key="normal" title="Facebook"/>
+                                        <connections>
+                                            <action selector="facebook:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Pti-cC-srM"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="aer-ec-yel" secondAttribute="trailing" constant="20" id="3S0-ok-K2a"/>
+                            <constraint firstItem="gYs-gf-UU9" firstAttribute="top" secondItem="C94-4p-R33" secondAttribute="bottom" constant="20" id="HwZ-cZ-n1f"/>
+                            <constraint firstItem="aer-ec-yel" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="80" id="TCd-CP-NSH"/>
+                            <constraint firstItem="gYs-gf-UU9" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="XVx-tq-mQC"/>
+                            <constraint firstItem="ZPZ-9x-tmG" firstAttribute="top" secondItem="gYs-gf-UU9" secondAttribute="bottom" constant="30" id="b9t-y1-8jZ"/>
+                            <constraint firstItem="C94-4p-R33" firstAttribute="top" secondItem="aer-ec-yel" secondAttribute="bottom" constant="40" id="eh3-rP-57k"/>
+                            <constraint firstItem="aer-ec-yel" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="ekt-gp-iHq"/>
+                            <constraint firstItem="C94-4p-R33" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="nPm-eb-944"/>
+                            <constraint firstItem="ZPZ-9x-tmG" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="xiG-ro-vjH"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="U8C-g8-0nI"/>
+                    <connections>
+                        <outlet property="textField" destination="aer-ec-yel" id="oA5-SF-vEr"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="108.69565217391305" y="132.58928571428572"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

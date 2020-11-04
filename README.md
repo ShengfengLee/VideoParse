@@ -1,2 +1,2 @@
 # VideoParse
-YouTube、Dailymotion等网页视频抓取
+YouTube、Dailymotion、duration、H5网页视频抓取

@@ -32,14 +32,9 @@ class VideoParseTests: XCTestCase {
 
     func testYouTube() {
         guard let url = URL(string: "https://www.youtube.com/watch?v=6RLRcN2aJAo") else { return }
-        guard let videoId = YoutubeParse.videoId(from: url) else { return }
-
         let documentOpenExpectation = self.expectation(description: "")
-        YoutubeParse.parse(with: videoId, complete: { youtubeMap, error in
-            if let error = error {
-                print(error)
-            }
-            else if let map = youtubeMap {
+        YoutubeParse.video(from: url, complete: { streamMap in
+            if let map = streamMap as? YoutubeStreamMap {
                 print(map)
             }
             documentOpenExpectation.fulfill()
@@ -49,50 +44,26 @@ class VideoParseTests: XCTestCase {
 
 
     func testDailymotion() {
-        
-        guard let url = URL(string: "https://www.dailymotion.com/video/x7x774p?playlist=x6hzkw") else { return }
-
-
-            let documentOpenExpectation = self.expectation(description: "")
-
-//        guard let videoId = DailymotionParse.videoId(from: url) else { return }
-        
-        DailymotionParse.fetchMetadata(with: url, complete: { youtubeMap, error in
-            if let error = error {
-                print(error)
-            }
-            else if let map = youtubeMap {
+        guard let url = URL(string: "https://www.dailymotion.com/video/x7x774p") else { return }
+        let documentOpenExpectation = self.expectation(description: "")
+        DailymotionParse.video(from: url, complete: { streamMap in
+            if let map = streamMap as? DailymotionStreamMap {
                 print(map)
             }
             documentOpenExpectation.fulfill()
         })
-
         self.waitForExpectations(timeout: 300, handler: nil)
     }
 
-    func testFacebook() {
+    func testVimeo() {
+        guard let url = URL(string: "https://vimeo.com/452638847") else { return }
         let documentOpenExpectation = self.expectation(description: "")
-
-
-        let videoId = "1071752269887808"
-        let urlStr = "https://www.facebook.com/watch/?v=" + videoId
-        guard let url = URL(string: urlStr) else { return }
-
-        let configuration = URLSessionConfiguration.default
-        configuration.timeoutIntervalForRequest = 30
-        configuration.timeoutIntervalForResource = 30
-        let request = NSMutableURLRequest(url: url)
-        let session = URLSession(configuration: configuration)
-        let task = session.dataTask(with: request as URLRequest, completionHandler: { (data, _, error) -> Void in
-            if let error = error {
-                print(error)
-            } else if let data = data, let result = String(data: data, encoding: .utf8) {
-                let map = FormatStreamMapFromString(result)
+        VimeoParse.video(from: url, complete: { streamMap in
+            if let map = streamMap as? VimeoStreamMap {
+                print(map)
             }
             documentOpenExpectation.fulfill()
         })
-        task.resume()
-
         self.waitForExpectations(timeout: 300, handler: nil)
     }
 }

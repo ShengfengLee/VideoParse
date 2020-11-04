@@ -16,10 +16,11 @@ struct Video {
     }
 
     enum Entity {
-        case youtube(YoutubeStramMap)
+        case youtube(YoutubeStreamMap)
         case local(path: URL)
         case h5(url: String)
-        case dailyMotion(DailymotionStramMap)
+        case dailyMotion(DailymotionStreamMap)
+        case vimeo(VimeoStreamMap)
 
 
         var videoResource: URL? {
@@ -27,14 +28,21 @@ struct Video {
             case .h5(let url):
                 return URL(string: url)
 
-            case .youtube(let youtubeStram):
-                if let path = youtubeStram.streamingData.first?.url, let url = URL(string: path) {
+            case .youtube(let youtubeStream):
+                if let path = youtubeStream.streamDatas.first?.url, let url = URL(string: path) {
                     return url
                 }
                 return nil
 
-            case .dailyMotion(let dailymotionStramMap):
-                if let path = dailymotionStramMap.streamInfos.first?.uri, let url = URL(string: path) {
+            case .dailyMotion(let dailymotionStreamMap):
+                if let path = dailymotionStreamMap.streamDatas.first?.uri, let url = URL(string: path) {
+                    return url
+                }
+                return nil
+
+
+            case .vimeo(let vimeoStreamMap):
+                if let path = vimeoStreamMap.streamDatas.first?.url, let url = URL(string: path) {
                     return url
                 }
                 return nil
@@ -50,10 +58,9 @@ struct Video {
     static func parse(url: URL?, html: String?, source: VideoSource = .h5, complete: ((Entity?) -> Void)?) {
 
         //先判断是不是youtube
-        if let url = url, let youtubeVideoId = YoutubeParse.videoId(from: url) {
-            //解析youtube视频
-            YoutubeParse.parse(with: youtubeVideoId) { (youtubeVideo, _) in
-                if let video = youtubeVideo {
+        if YoutubeParse.validVideoId(from: url) {
+            YoutubeParse.video(from: url) { (streamMap) in
+                if let video = streamMap as? YoutubeStreamMap {
                     complete?(Entity.youtube(video))
                 }
                 //解析失败，按照H5模式再试一次
@@ -62,14 +69,16 @@ struct Video {
                     let video = self.parse(html: html)
                     complete?(video)
                 }
+
+                return
             }
-            return
         }
 
-        //Dailymotion
-        if let url = url, let _ = DailymotionParse.videoId(from: url) {
-            DailymotionParse.parse(with: url) { (video, _) in
-                if let video = video {
+
+        //判断是不是Dailymotion
+        if DailymotionParse.validVideoId(from: url) {
+            DailymotionParse.video(from: url) { (streamMap) in
+                if let video = streamMap as? DailymotionStreamMap {
                     complete?(Entity.dailyMotion(video))
                 }
                 //解析失败，按照H5模式再试一次
@@ -78,9 +87,30 @@ struct Video {
                     let video = self.parse(html: html)
                     complete?(video)
                 }
+
+                return
             }
-            return
         }
+
+
+
+        //判断是不是Vimeo
+        if VimeoParse.validVideoId(from: url) {
+            VimeoParse.video(from: url) { (streamMap) in
+                if let video = streamMap as? VimeoStreamMap {
+                    complete?(Entity.vimeo(video))
+                }
+                //解析失败，按照H5模式再试一次
+                else {
+                    //解析网页
+                    let video = self.parse(html: html)
+                    complete?(video)
+                }
+
+                return
+            }
+        }
+
 
         //解析网页
         let video = self.parse(html: html)

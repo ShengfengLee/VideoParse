@@ -8,15 +8,15 @@
 import Foundation
 
 
-public class YoutubeParse {
+public class YoutubeParse: StreamParse {
 
     private static let kUserAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.4 (KHTML, like Gecko) Chrome/22.0.1229.79 Safari/537.4"
     private static let kYoutubeInfoURL = "https://www.youtube.com/get_video_info?video_id="
 
     ///根据URL获取youtube视频详情
-    public class func video(from url: URL, complete: ((YoutubeStramMap?, Error?) -> Void)?) {
-        guard let videoId = self.videoId(from: url) else {
-            complete?(nil, nil)
+    public class func video(from url: URL?, complete: ((StreamMap?) -> Void)?) {
+        guard let url = url, let videoId = self.videoId(from: url) else {
+            complete?(nil)
             return
         }
 
@@ -25,8 +25,8 @@ public class YoutubeParse {
 
 
     ///根据URL解析youtube视频videoId
-    public class func videoId(from url: URL) -> String? {
-        guard let host = url.host else {
+    public class func videoId(from url: URL?) -> String? {
+        guard let url = url, let host = url.host else {
             return nil
         }
         let pathComponents = url.pathComponents
@@ -56,31 +56,22 @@ public class YoutubeParse {
     }
     
     ///根据视频id获取视频详情
-    public class func parse(with videoId: String, complete: ((YoutubeStramMap?, Error?) -> Void)?) {
-        let configuration = URLSessionConfiguration.default
-        configuration.timeoutIntervalForRequest = 30
-        configuration.timeoutIntervalForResource = 30
-
+    private class func parse(with videoId: String, complete: ((YoutubeStreamMap?) -> Void)?) {
         let urlStr = kYoutubeInfoURL + videoId
-        if let infoURL = URL(string: urlStr) {
-            let request = NSMutableURLRequest(url: infoURL)
-            request.setValue(kUserAgent, forHTTPHeaderField: "User-Agent")
-            let session = URLSession(configuration: configuration)
-            let task = session.dataTask(with: request as URLRequest, completionHandler: { (data, _, error) -> Void in
-                if let error = error {
-                    complete?(nil, error)
-                } else if let data = data, let result = String(data: data, encoding: .utf8) {
-                    let map = FormatStreamMapFromString(result)
-                    complete?(map, nil)
-                }
-                else {
-                    complete?(nil, nil)
-                }
-            })
-            task.resume()
+        guard let url = URL(string: urlStr) else {
+            complete?(nil)
+            return
         }
-        else {
-            complete?(nil, nil)
+
+        var request = URLRequest(url: url)
+        request.setValue(kUserAgent, forHTTPHeaderField: "User-Agent")
+        DailymotionStreamMap.fetch(request) { (data, _, error) in
+            guard let data = data else {
+                complete?(nil)
+                return
+            }
+            let map = YoutubeStreamMap(data)
+            complete?(map)
         }
     }
 }

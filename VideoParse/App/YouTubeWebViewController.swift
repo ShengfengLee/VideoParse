@@ -115,7 +115,8 @@ class YouTubeWebViewController: UIViewController {
     @IBAction func okClick(_ sender: UIButton) {
         self.webView.evaluateJavaScript("document.documentElement.outerHTML.toString()") { [weak self] (data, error) in
             let html = data as? String
-            Video.parse(url: self?.webView.url, html: html) { (entity) in
+            let url = self?.webView.url
+            Video.parse(url: url, html: html) { (entity) in
                 if let absoluteString = entity?.videoResource?.absoluteString {
                     print(absoluteString)
 

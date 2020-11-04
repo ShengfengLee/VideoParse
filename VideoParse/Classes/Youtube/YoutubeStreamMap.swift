@@ -1,5 +1,5 @@
 //
-//  YoutubeStramMap.swift
+//  YoutubeStreamMap.swift
 //  VideoParse
 //
 //  Created by lishengfeng on 2020/11/3.
@@ -7,14 +7,23 @@
 
 import Foundation
 
-public struct YoutubeStramMap {
+public struct YoutubeStreamMap: StreamMap {
+    public var videoId: String { return videoDetails.videoId }
+    public var webUrl: String { return "https://www.youtube.com/watch?v=\(videoId)" }
+    public var title: String { return videoDetails.title }
+    public var duration: Int { return videoDetails.lengthSeconds }
+    public var thumbnails: [StreamThumbnail] { return videoDetails.thumbnails }
+
+    ///视频详情
+    public let videoDetails: VideoDetails
+    ///视频流列表
+    public let streamDatas: [StreamData]
     public let host: String
     public let pageType: String
 
-    public let videoDetails: VideoDetails
-    public let streamingData: [StreamingData]
-
-    public init?(_ dict: [String: String]) {
+    public init?(_ data: Data) {
+        guard let string = String(data: data, encoding: .utf8) else { return nil }
+        let dict = string.yy_toDict()
         guard let vss_host = dict["vss_host"] else { return nil }
         guard let csi_page_type = dict["csi_page_type"] else { return nil }
         guard let player_response = dict["player_response"] else { return nil }
@@ -30,7 +39,7 @@ public struct YoutubeStramMap {
 
         //视频流
         guard let streamingData = response["streamingData"] as? [String: Any] else { return nil }
-        var list = [StreamingData]()
+        var list = [StreamData]()
         var allFormats = [[String: Any]]()
         if let formats = streamingData["formats"] as? [[String: Any]] {
             allFormats.append(contentsOf: formats)
@@ -39,22 +48,22 @@ public struct YoutubeStramMap {
             allFormats.append(contentsOf: adaptiveFormats)
         }
         allFormats.forEach({
-            if let data = StreamingData($0) {
+            if let data = StreamData($0) {
                 list.append(data)
             }
         })
-        self.streamingData = list
+        self.streamDatas = list
     }
 }
 
-public extension YoutubeStramMap {
+public extension YoutubeStreamMap {
     struct VideoDetails {
         let videoId: String
         let title: String
-        let lengthSeconds: Int?
+        let lengthSeconds: Int
         let keywords: [String]?
         let shortDescription: String?
-        let thumbnails: [Thumbnail]?
+        let thumbnails: [Thumbnail]
 
         public init?(_ dict: [String: Any]) {
             guard let videoId = dict["videoId"] as? String else { return nil }
@@ -67,33 +76,25 @@ public extension YoutubeStramMap {
 
             self.videoId = videoId
             self.title = title
-            self.lengthSeconds = Int(lengthSeconds)
+            self.lengthSeconds = Int(lengthSeconds) ?? 0
             self.keywords = keywords
             self.shortDescription = shortDescription
 
-            let thumbnail = dict["thumbnail"] as? [String: Any]
-            let thumbnails = thumbnail?["thumbnails"] as? [[String: Any]]
-
-
             //封面
-            var list = [Thumbnail]()
-            thumbnails?.forEach({
-                if let thumbnail = Thumbnail($0) {
-                    list.append(thumbnail)
-                }
-            })
-            self.thumbnails = list
+            guard let thumbnail = dict["thumbnail"] as? [String: Any],
+                  let thumbnails = thumbnail["thumbnails"] as? [[String: Any]] else { return nil }
+            self.thumbnails = thumbnails.compactMap { Thumbnail($0) }
         }
     }
 }
 
 
-public extension YoutubeStramMap.VideoDetails {
+public extension YoutubeStreamMap.VideoDetails {
 
-    struct Thumbnail {
-        let url: String
-        let width: Float
-        let height: Float
+    struct Thumbnail: StreamThumbnail {
+        public let url: String
+        public let width: Float
+        public let height: Float
 
         public init?(_ dict: [String: Any]) {
             guard let url = dict["url"] as? String else { return nil }
@@ -107,13 +108,13 @@ public extension YoutubeStramMap.VideoDetails {
     }
 }
 
-public extension YoutubeStramMap {
-    struct StreamingData {
+public extension YoutubeStreamMap {
+    struct StreamData {
         let url: String
         let mimeType: String
         let width: Float
         let height: Float
-        let quality: StreamingQuality
+        let quality: StreamQuality
         let fps: Int
         let qualityLabel: String
 
@@ -131,16 +132,9 @@ public extension YoutubeStramMap {
             self.mimeType = mimeType
             self.width = width
             self.height = height
-            self.quality = StreamingQuality(quality) 
+            self.quality = StreamQuality(quality) 
             self.fps = fps
             self.qualityLabel = qualityLabel
         }
     }
-
-}
-
-public func FormatStreamMapFromString(_ string: String) -> YoutubeStramMap? {
-    let dict = string.yy_toDict()
-    let stram = YoutubeStramMap(dict)
-    return stram
 }

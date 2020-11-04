@@ -24,7 +24,7 @@
 		8F2ACA142551448500788FB6 /* HTMLParse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F2ACA132551448500788FB6 /* HTMLParse.swift */; };
 		8F2ACA1A25514AF800788FB6 /* YouTubeWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F2ACA1825514AF800788FB6 /* YouTubeWebViewController.swift */; };
 		8F2ACA1B25514AF800788FB6 /* YouTubeWebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F2ACA1925514AF800788FB6 /* YouTubeWebViewController.xib */; };
-		8F2ACA2025514DE600788FB6 /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F2ACA1F25514DE600788FB6 /* Video.swift */; };
+		8F2ACA2025514DE600788FB6 /* VideoParse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F2ACA1F25514DE600788FB6 /* VideoParse.swift */; };
 		8F2ACA29255160CD00788FB6 /* DailymotionParse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F2ACA28255160CD00788FB6 /* DailymotionParse.swift */; };
 		8FA8BE8725523F2A000C0765 /* DailymotionStreamMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA8BE8625523F2A000C0765 /* DailymotionStreamMap.swift */; };
 		8FA8BE8C25523F90000C0765 /* StreamMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA8BE8B25523F90000C0765 /* StreamMap.swift */; };
@@ -35,6 +35,7 @@
 		8FA8BEE5255290A0000C0765 /* StreamParse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA8BEE4255290A0000C0765 /* StreamParse.swift */; };
 		8FA8BEEA25529A2C000C0765 /* StreamThumbnail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA8BEE925529A2C000C0765 /* StreamThumbnail.swift */; };
 		8FA8BEEF25529ADF000C0765 /* DailymotionStreamQuality.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA8BEEE25529ADF000C0765 /* DailymotionStreamQuality.swift */; };
+		8FA8BF002552B139000C0765 /* HtmlStramMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA8BEFF2552B139000C0765 /* HtmlStramMap.swift */; };
 		E89BC2F0EDB6188796A0546C /* Pods_VideoParse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB00F36088CA6D2F4F33FE7B /* Pods_VideoParse.framework */; };
 /* End PBXBuildFile section */
 
@@ -81,7 +82,7 @@
 		8F2ACA132551448500788FB6 /* HTMLParse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLParse.swift; sourceTree = "<group>"; };
 		8F2ACA1825514AF800788FB6 /* YouTubeWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YouTubeWebViewController.swift; sourceTree = "<group>"; };
 		8F2ACA1925514AF800788FB6 /* YouTubeWebViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YouTubeWebViewController.xib; sourceTree = "<group>"; };
-		8F2ACA1F25514DE600788FB6 /* Video.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Video.swift; sourceTree = "<group>"; };
+		8F2ACA1F25514DE600788FB6 /* VideoParse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoParse.swift; sourceTree = "<group>"; };
 		8F2ACA28255160CD00788FB6 /* DailymotionParse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailymotionParse.swift; sourceTree = "<group>"; };
 		8FA8BE8625523F2A000C0765 /* DailymotionStreamMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailymotionStreamMap.swift; sourceTree = "<group>"; };
 		8FA8BE8B25523F90000C0765 /* StreamMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamMap.swift; sourceTree = "<group>"; };
@@ -92,6 +93,7 @@
 		8FA8BEE4255290A0000C0765 /* StreamParse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamParse.swift; sourceTree = "<group>"; };
 		8FA8BEE925529A2C000C0765 /* StreamThumbnail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamThumbnail.swift; sourceTree = "<group>"; };
 		8FA8BEEE25529ADF000C0765 /* DailymotionStreamQuality.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailymotionStreamQuality.swift; sourceTree = "<group>"; };
+		8FA8BEFF2552B139000C0765 /* HtmlStramMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HtmlStramMap.swift; sourceTree = "<group>"; };
 		91685A1504BA51EADB0ACCFA /* Pods-VideoParse.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VideoParse.debug.xcconfig"; path = "Target Support Files/Pods-VideoParse/Pods-VideoParse.debug.xcconfig"; sourceTree = "<group>"; };
 		BB00F36088CA6D2F4F33FE7B /* Pods_VideoParse.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VideoParse.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB77D9E3F0F1348A8278BBDB /* Pods-VideoParse-VideoParseUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VideoParse-VideoParseUITests.release.xcconfig"; path = "Target Support Files/Pods-VideoParse-VideoParseUITests/Pods-VideoParse-VideoParseUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -194,7 +196,7 @@
 			isa = PBXGroup;
 			children = (
 				8F2AC9E82551233200788FB6 /* YoYo+Extension.swift */,
-				8F2ACA1F25514DE600788FB6 /* Video.swift */,
+				8F2ACA1F25514DE600788FB6 /* VideoParse.swift */,
 				8FA8BE8B25523F90000C0765 /* StreamMap.swift */,
 				8FA8BEE4255290A0000C0765 /* StreamParse.swift */,
 				8FA8BEAF25528BD5000C0765 /* StreamQuality.swift */,
@@ -256,6 +258,7 @@
 			isa = PBXGroup;
 			children = (
 				8F2ACA132551448500788FB6 /* HTMLParse.swift */,
+				8FA8BEFF2552B139000C0765 /* HtmlStramMap.swift */,
 			);
 			path = HTML;
 			sourceTree = "<group>";
@@ -513,6 +516,7 @@
 				8F2AC9B52551231500788FB6 /* AppDelegate.swift in Sources */,
 				8FA8BE8725523F2A000C0765 /* DailymotionStreamMap.swift in Sources */,
 				8FA8BEB025528BD5000C0765 /* StreamQuality.swift in Sources */,
+				8FA8BF002552B139000C0765 /* HtmlStramMap.swift in Sources */,
 				8F2ACA1A25514AF800788FB6 /* YouTubeWebViewController.swift in Sources */,
 				8F2ACA142551448500788FB6 /* HTMLParse.swift in Sources */,
 				8F2ACA29255160CD00788FB6 /* DailymotionParse.swift in Sources */,
@@ -527,7 +531,7 @@
 				8FA8BEEA25529A2C000C0765 /* StreamThumbnail.swift in Sources */,
 				8F2AC9EE2551233200788FB6 /* YoutubeStreamQuality.swift in Sources */,
 				8F2AC9ED2551233200788FB6 /* YoutubeParse.swift in Sources */,
-				8F2ACA2025514DE600788FB6 /* Video.swift in Sources */,
+				8F2ACA2025514DE600788FB6 /* VideoParse.swift in Sources */,
 				8FA8BE8C25523F90000C0765 /* StreamMap.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

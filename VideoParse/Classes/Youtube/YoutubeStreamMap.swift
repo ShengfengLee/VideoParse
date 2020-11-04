@@ -13,11 +13,11 @@ public struct YoutubeStreamMap: StreamMap {
     public var title: String { return videoDetails.title }
     public var duration: Int { return videoDetails.lengthSeconds }
     public var thumbnails: [StreamThumbnail] { return videoDetails.thumbnails }
+    public let streamDatas: [StreamingData]
+    public var source: StreamSource { return .youtube }
 
     ///视频详情
     public let videoDetails: VideoDetails
-    ///视频流列表
-    public let streamDatas: [StreamData]
     public let host: String
     public let pageType: String
 
@@ -109,14 +109,14 @@ public extension YoutubeStreamMap.VideoDetails {
 }
 
 public extension YoutubeStreamMap {
-    struct StreamData {
-        let url: String
-        let mimeType: String
-        let width: Float
-        let height: Float
-        let quality: StreamQuality
-        let fps: Int
-        let qualityLabel: String
+    struct StreamData: StreamingData {
+        public let url: String
+        public let mimeType: String
+        public let width: Float
+        public let height: Float
+        public let quality: StreamQuality
+        public let fps: Int
+        public let qualityLabel: String
 
 
         public init?(_ dict: [String: Any]) {

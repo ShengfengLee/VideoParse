@@ -14,9 +14,10 @@ public struct DailymotionStreamMap: StreamMap {
     public let title: String
     public let duration: Int
     public var thumbnails: [StreamThumbnail]
+    public let streamDatas: [StreamingData]
+    public var source: StreamSource { return .dailyMotion }
 
     public let tags: [String]?
-    public let streamDatas: [StreamData]
 
     public init?(_ data: Data, streamDatas: [StreamData]) {
         guard let dict = lsf_jsonToObject(data) as? [String: Any] else { return nil }
@@ -85,23 +86,23 @@ public struct DailymotionStreamMap: StreamMap {
 
 
 public extension DailymotionStreamMap {
-    struct StreamData {
-        let codecs: String
-        let resolution: String
-        let name: String
-        let uri: String
+    struct StreamData: StreamingData {
+        public let codecs: String
+        public let resolution: String
+        public let name: String
+        public let url: String
 
         public init?(_ dict: [String: Any]) {
 
             guard let codecs = dict["CODECS"] as? String else { return nil }
             guard let resolution = dict["RESOLUTION"] as? String else { return nil }
             guard let name = dict["NAME"] as? String else { return nil }
-            guard let uri = dict["PROGRESSIVE-URI"] as? String else { return nil }
+            guard let url = dict["PROGRESSIVE-URI"] as? String else { return nil }
 
             self.codecs = codecs
             self.resolution = resolution
             self.name = name
-            self.uri = uri
+            self.url = url
         }
     }
 }

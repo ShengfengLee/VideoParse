@@ -14,8 +14,12 @@ public class YoutubeParse: StreamParse {
     private static let kYoutubeInfoURL = "https://www.youtube.com/get_video_info?video_id="
 
     ///根据URL获取youtube视频详情
-    public class func video(from url: URL?, complete: ((StreamMap?) -> Void)?) {
-        guard let url = url, let videoId = self.videoId(from: url) else {
+    public class func video(from source: Any?, complete: ((StreamBaseMap?) -> Void)?) {
+        var url = source as? URL
+        if let urlStr = source as? String {
+            url = URL(string: urlStr)
+        }
+        guard let videoUrl = url, let videoId = self.videoId(from: videoUrl) else {
             complete?(nil)
             return
         }

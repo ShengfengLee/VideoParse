@@ -9,14 +9,15 @@ import Foundation
 
 
 public class VimeoStreamMap: StreamMap {
+
     public let videoId: String
     public let webUrl: String
     public let title: String
     public let duration: Int
     public var thumbnails: [StreamThumbnail]
-    
-    ///视频流列表
-    public let streamDatas: [StreamData]
+    public let streamDatas: [StreamingData]
+    public var source: StreamSource { return .vimeo }
+
 
     public init?(_ data: Data) {
         guard let dict = lsf_jsonToObject(data) as? [String: Any] else { return nil }
@@ -65,13 +66,13 @@ public class VimeoStreamMap: StreamMap {
 
 
 public extension VimeoStreamMap {
-    struct StreamData {
-        let url: String
-        let mime: String
-        let width: Float
-        let height: Float
-        let quality: StreamQuality
-        let fps: Int
+    struct StreamData: StreamingData {
+        public let url: String
+        public let mime: String
+        public let width: Float
+        public let height: Float
+        public let quality: StreamQuality
+        public let fps: Int
 
 
         public init?(_ dict: [String: Any]) {

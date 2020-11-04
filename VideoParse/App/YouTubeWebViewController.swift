@@ -116,8 +116,8 @@ class YouTubeWebViewController: UIViewController {
         self.webView.evaluateJavaScript("document.documentElement.outerHTML.toString()") { [weak self] (data, error) in
             let html = data as? String
             let url = self?.webView.url
-            Video.parse(url: url, html: html) { (entity) in
-                if let absoluteString = entity?.videoResource?.absoluteString {
+            VideoParse.parse(url: url, html: html) { (streamMap) in
+                if let absoluteString = streamMap?.defualtStreamUrl {
                     print(absoluteString)
 
                     DispatchQueue.main.async {  [weak self] in

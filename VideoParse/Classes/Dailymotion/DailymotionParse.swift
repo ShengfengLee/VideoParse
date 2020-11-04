@@ -19,12 +19,15 @@ public class DailymotionParse: StreamParse {
         }
         return nil
     }
-
-    ///根据URL获取视频详情
-    public class func video(from url: URL?, complete: ((StreamMap?) -> Void)?) {
-        guard let url = url,
-              let embedder = url.absoluteString.addingPercentEncoding(withAllowedCharacters: .whitespaces),
-              let videoId = self.videoId(from: url) else {
+    ///根据URL获取youtube视频详情
+    public class func video(from source: Any?, complete: ((StreamBaseMap?) -> Void)?) {
+        var url = source as? URL
+        if let urlStr = source as? String {
+            url = URL(string: urlStr)
+        }
+        guard let videoUrl = url,
+              let embedder = videoUrl.absoluteString.addingPercentEncoding(withAllowedCharacters: .whitespaces),
+              let videoId = self.videoId(from: videoUrl) else {
             complete?(nil)
             return
         }

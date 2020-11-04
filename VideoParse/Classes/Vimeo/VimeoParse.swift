@@ -9,14 +9,16 @@ import Foundation
 
 
 public class VimeoParse: StreamParse {
-
-    ///根据URL获取youtube视频详情
-    public class func video(from url: URL?, complete: ((StreamMap?) -> Void)?) {
-        guard let url = url, let videoId = self.videoId(from: url) else {
+    ///根据URL获取视频详情
+    public class func video(from source: Any?, complete: ((StreamBaseMap?) -> Void)?) {
+        var url = source as? URL
+        if let urlStr = source as? String {
+            url = URL(string: urlStr)
+        }
+        guard let videoUrl = url, let videoId = self.videoId(from: videoUrl) else {
             complete?(nil)
             return
         }
-
         self.parse(with: videoId, complete: complete)
     }
 

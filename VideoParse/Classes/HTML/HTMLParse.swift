@@ -8,12 +8,26 @@
 import Foundation
 import SwiftSoup
 
-public class HTMLParse {
+public struct HTMLParse: StreamParse {
+    public static func videoId(from url: URL?) -> String? {
+        return nil
+    }
+
+    ///根据HTML获取视频详情
+    public static func video(from source: Any?, complete: ((StreamBaseMap?) -> Void)?) {
+        guard let html = source as? String else {
+            complete?(nil)
+            return
+        }
+        let streamMap = self.parseVideo(for: html)
+        complete?(streamMap)
+    }
+
 
     ///抓取网页的视频播放地址
-    public class func parseVideo(for html: String) -> String? {
+    public static func parseVideo(for html: String) -> HtmlStramMap? {
         let result = try? self.getVideoAttribute(forKey: "src", html: html)
-        return result
+        return HtmlStramMap(result)
     }
 
     public enum ParseError: Error {
@@ -22,7 +36,7 @@ public class HTMLParse {
     }
 
 
-    public class func getVideoAttribute(forKey key: String, html: String) throws -> String? {
+    public static func getVideoAttribute(forKey key: String, html: String) throws -> String? {
         let document = try SwiftSoup.parse(html)
         ///查询video标签
         let videos = try document.select("video")

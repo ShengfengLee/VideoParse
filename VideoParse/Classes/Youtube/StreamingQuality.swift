@@ -66,3 +66,6 @@ public enum StreamingQuality: Comparable {
 
 public func == (x: StreamingQuality, y: StreamingQuality) -> Bool { return x.level == y.level }
 public func < (x: StreamingQuality, y: StreamingQuality) -> Bool { return x.level < y.level }
+
+
+

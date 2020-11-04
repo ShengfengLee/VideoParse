@@ -9,17 +9,13 @@ import Foundation
 
 public class DailymotionParse {
 
-    private static let kUserAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.4 (KHTML, like Gecko) Chrome/22.0.1229.79 Safari/537.4"
-    private static let kYoutubeInfoURL = "https://www.youtube.com/get_video_info?video_id="
-
     ///根据URL获取视频详情
-    public class func video(from url: URL, complete: ((YoutubeStramMap?, Error?) -> Void)?) {
+    public class func video(from url: URL, complete: ((DailymotionStramMap?, Error?) -> Void)?) {
         guard let videoId = self.videoId(from: url) else {
             complete?(nil, nil)
             return
         }
 
-        self.parse(with: videoId, complete: complete)
     }
 
 
@@ -35,37 +31,69 @@ public class DailymotionParse {
         return nil
     }
 
-    public class func fetchMetadata(with url: URL) {
+    public class func parse(with url: URL, complete: ((DailymotionStramMap?, Error?) -> Void)?) {
         guard let videoId = self.videoId(from: url) else { return }
-        var metadataUrl = "https://www.dailymotion.com/player/metadata/video/\(videoId)?embedder="
-    }
+        guard let embedder = url.absoluteString.addingPercentEncoding(withAllowedCharacters: .whitespaces) else { return }
 
-    ///根据视频id获取视频详情
-    public class func parse(with videoId: String, complete: ((YoutubeStramMap?, Error?) -> Void)?) {
-        let configuration = URLSessionConfiguration.default
-        configuration.timeoutIntervalForRequest = 30
-        configuration.timeoutIntervalForResource = 30
 
-        let urlStr = kYoutubeInfoURL + videoId
-        if let infoURL = URL(string: urlStr) {
-            let request = NSMutableURLRequest(url: infoURL)
-            request.setValue(kUserAgent, forHTTPHeaderField: "User-Agent")
-            let session = URLSession(configuration: configuration)
-            let task = session.dataTask(with: request as URLRequest, completionHandler: { (data, _, error) -> Void in
-                if let error = error {
-                    complete?(nil, error)
-                } else if let data = data, let result = String(data: data, encoding: .utf8) {
-                    let map = FormatStreamMapFromString(result)
-                    complete?(map, nil)
-                }
-                else {
-                    complete?(nil, nil)
-                }
-            })
-            task.resume()
-        }
-        else {
+        let metadataUrl = "https://www.dailymotion.com/player/metadata/video/\(videoId)?embedder=" + embedder + "&" + "referer=&app=com.dailymotion.neon&locale=en-US&client_type=website&section_type=player&component_style=_"
+
+
+        guard let infoURL = URL(string: metadataUrl) else {
             complete?(nil, nil)
+            return
+        }
+
+        //下载视频详情
+        let request = URLRequest(url: infoURL)
+        DailymotionStramMap.fetch(request) { (data, _, error) in
+            guard let data = data else {
+                complete?(nil, error)
+                return
+            }
+
+            //下载m3u8文件
+            if let m3u8Url = DailymotionStramMap.m3u8(from: data) {
+                self.downloadM3U8(m3u8Url) { (string, error) in
+                    guard let m3u8 = string else {
+                        complete?(nil, error)
+                        return
+                    }
+
+                    //解析m3u8文件
+                    if let streamInfos = DailymotionStramMap.analysis(m3u8: m3u8) {
+                        let map = DailymotionStramMap(data, streamInfos: streamInfos)
+                        complete?(map, error)
+                    }
+                    else {
+                        complete?(nil, error)
+                    }
+                }
+            }
+            else {
+                complete?(nil, error)
+            }
         }
     }
+
+    ///下载m3u8文件
+    private class func downloadM3U8(_ urlStr: String, complete: ((String?, Error?) -> Void)?) {
+        guard let url = URL(string: urlStr) else {
+            return
+        }
+
+        let request = URLRequest(url: url)
+        DailymotionStramMap.fetch(request) { (data, _, error) in
+            guard let m3u8Data = data else {
+                complete?(nil, error)
+                return
+            }
+
+            let string = String(data: m3u8Data, encoding: .utf8)
+            complete?(string, error)
+        }
+    }
+
 }
+
+

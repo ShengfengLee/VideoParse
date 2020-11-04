@@ -26,6 +26,9 @@
 		8F2ACA1B25514AF800788FB6 /* YouTubeWebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F2ACA1925514AF800788FB6 /* YouTubeWebViewController.xib */; };
 		8F2ACA2025514DE600788FB6 /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F2ACA1F25514DE600788FB6 /* Video.swift */; };
 		8F2ACA29255160CD00788FB6 /* DailymotionParse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F2ACA28255160CD00788FB6 /* DailymotionParse.swift */; };
+		8F2ACA3125516D2A00788FB6 /* dailymotion_response in Resources */ = {isa = PBXBuildFile; fileRef = 8F2ACA3025516D2A00788FB6 /* dailymotion_response */; };
+		8FA8BE8725523F2A000C0765 /* DailymotionStramMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA8BE8625523F2A000C0765 /* DailymotionStramMap.swift */; };
+		8FA8BE8C25523F90000C0765 /* StramMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA8BE8B25523F90000C0765 /* StramMap.swift */; };
 		E89BC2F0EDB6188796A0546C /* Pods_VideoParse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB00F36088CA6D2F4F33FE7B /* Pods_VideoParse.framework */; };
 /* End PBXBuildFile section */
 
@@ -74,6 +77,9 @@
 		8F2ACA1925514AF800788FB6 /* YouTubeWebViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YouTubeWebViewController.xib; sourceTree = "<group>"; };
 		8F2ACA1F25514DE600788FB6 /* Video.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Video.swift; sourceTree = "<group>"; };
 		8F2ACA28255160CD00788FB6 /* DailymotionParse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailymotionParse.swift; sourceTree = "<group>"; };
+		8F2ACA3025516D2A00788FB6 /* dailymotion_response */ = {isa = PBXFileReference; lastKnownFileType = text; path = dailymotion_response; sourceTree = "<group>"; };
+		8FA8BE8625523F2A000C0765 /* DailymotionStramMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailymotionStramMap.swift; sourceTree = "<group>"; };
+		8FA8BE8B25523F90000C0765 /* StramMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StramMap.swift; sourceTree = "<group>"; };
 		91685A1504BA51EADB0ACCFA /* Pods-VideoParse.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VideoParse.debug.xcconfig"; path = "Target Support Files/Pods-VideoParse/Pods-VideoParse.debug.xcconfig"; sourceTree = "<group>"; };
 		BB00F36088CA6D2F4F33FE7B /* Pods_VideoParse.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VideoParse.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB77D9E3F0F1348A8278BBDB /* Pods-VideoParse-VideoParseUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VideoParse-VideoParseUITests.release.xcconfig"; path = "Target Support Files/Pods-VideoParse-VideoParseUITests/Pods-VideoParse-VideoParseUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -182,11 +188,12 @@
 		8F2AC9E72551233200788FB6 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				8F2AC9E82551233200788FB6 /* YoYo+Extension.swift */,
 				8F2ACA1F25514DE600788FB6 /* Video.swift */,
 				8F2ACA132551448500788FB6 /* HTMLParse.swift */,
+				8FA8BE8B25523F90000C0765 /* StramMap.swift */,
 				8F2ACA27255160BF00788FB6 /* Dailymotion */,
 				8F2AC9E92551233200788FB6 /* Youtube */,
-				8F2AC9E82551233200788FB6 /* YoYo+Extension.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -205,6 +212,8 @@
 			isa = PBXGroup;
 			children = (
 				8F2ACA28255160CD00788FB6 /* DailymotionParse.swift */,
+				8FA8BE8625523F2A000C0765 /* DailymotionStramMap.swift */,
+				8F2ACA3025516D2A00788FB6 /* dailymotion_response */,
 			);
 			path = Dailymotion;
 			sourceTree = "<group>";
@@ -330,6 +339,7 @@
 				8F2AC9C12551231600788FB6 /* LaunchScreen.storyboard in Resources */,
 				8F2AC9BE2551231600788FB6 /* Assets.xcassets in Resources */,
 				8F2AC9BC2551231500788FB6 /* Main.storyboard in Resources */,
+				8F2ACA3125516D2A00788FB6 /* dailymotion_response in Resources */,
 				8F2ACA1B25514AF800788FB6 /* YouTubeWebViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -460,6 +470,7 @@
 			files = (
 				8F2AC9B92551231500788FB6 /* ViewController.swift in Sources */,
 				8F2AC9B52551231500788FB6 /* AppDelegate.swift in Sources */,
+				8FA8BE8725523F2A000C0765 /* DailymotionStramMap.swift in Sources */,
 				8F2ACA1A25514AF800788FB6 /* YouTubeWebViewController.swift in Sources */,
 				8F2ACA142551448500788FB6 /* HTMLParse.swift in Sources */,
 				8F2ACA29255160CD00788FB6 /* DailymotionParse.swift in Sources */,
@@ -469,6 +480,7 @@
 				8F2AC9EE2551233200788FB6 /* StreamingQuality.swift in Sources */,
 				8F2AC9ED2551233200788FB6 /* YoutubeParse.swift in Sources */,
 				8F2ACA2025514DE600788FB6 /* Video.swift in Sources */,
+				8FA8BE8C25523F90000C0765 /* StramMap.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -51,7 +51,23 @@ class VideoParseTests: XCTestCase {
     func testDailymotion() {
         
         guard let url = URL(string: "https://www.dailymotion.com/video/x7x774p?playlist=x6hzkw") else { return }
-        guard let videoId = DailymotionParse.videoId(from: url) else { return }
+
+
+            let documentOpenExpectation = self.expectation(description: "")
+
+//        guard let videoId = DailymotionParse.videoId(from: url) else { return }
+        
+        DailymotionParse.fetchMetadata(with: url, complete: { youtubeMap, error in
+            if let error = error {
+                print(error)
+            }
+            else if let map = youtubeMap {
+                print(map)
+            }
+            documentOpenExpectation.fulfill()
+        })
+
+        self.waitForExpectations(timeout: 300, handler: nil)
     }
 
     func testFacebook() {

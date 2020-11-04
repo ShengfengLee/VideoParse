@@ -19,6 +19,7 @@ struct Video {
         case youtube(YoutubeStramMap)
         case local(path: URL)
         case h5(url: String)
+        case dailyMotion(DailymotionStramMap)
 
 
         var videoResource: URL? {
@@ -32,6 +33,11 @@ struct Video {
                 }
                 return nil
 
+            case .dailyMotion(let dailymotionStramMap):
+                if let path = dailymotionStramMap.streamInfos.first?.uri, let url = URL(string: path) {
+                    return url
+                }
+                return nil
             case .local(let path):
                 return path
             }
@@ -49,6 +55,22 @@ struct Video {
             YoutubeParse.parse(with: youtubeVideoId) { (youtubeVideo, _) in
                 if let video = youtubeVideo {
                     complete?(Entity.youtube(video))
+                }
+                //解析失败，按照H5模式再试一次
+                else {
+                    //解析网页
+                    let video = self.parse(html: html)
+                    complete?(video)
+                }
+            }
+            return
+        }
+
+        //Dailymotion
+        if let url = url, let _ = DailymotionParse.videoId(from: url) {
+            DailymotionParse.parse(with: url) { (video, _) in
+                if let video = video {
+                    complete?(Entity.dailyMotion(video))
                 }
                 //解析失败，按照H5模式再试一次
                 else {
